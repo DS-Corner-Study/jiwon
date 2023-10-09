@@ -1,0 +1,117 @@
+<1.1 스프링 프레임워크>
+자바에서 가장 많이 사용하는 프레임워크
+자바로 애플리케이션을 개발하는 데 필요한 기능을 제공하고 쉽게 사용할 수 있도록 돕는 도구
+스프링의 핵심 가치->”애플리케이션 개발에 필요한 기반을 제공해서 개발자가 비즈니스 로직 구현에만 집중할 수 있게끔 하는 것”
+
+-1.1.1제어역전(IoC)
+
+예제 1.1 일반적인 자바 코드에서의 객체 사용법
+@RestController
+public class NoDIController{
+    private MyService service = new MyServiceImpl();
+    
+    @GetMapping("/no-di/hello")
+    public String getHello(){
+        return service.getHello();
+    }
+}
+
+제어역전 IoC: Inversion of Control
+제어역전을 특징으로 하는 스프링은 기존 자바 개발 방식과 다르게 사용할 객체를 직접 생성하지 않고 객체의 생명주기 관리를 외부(=스프링 컨테이너 or IoC 컨테이너)에 위임함.
+제어역전을 통해 의존성 주입(DI: Dependency Injection), 관점 지향 프로그래밍(AOP: Aspect-Oriented Programming) 등이 가능해짐
+
+-1.1.2의존성 주입(DI)
+의존성 주입 DI: Dependency Injection
+의존성 주입이란? 사용할 객체를 직접 생성하지 않고 외부 컨테이너가 생성한 객체를 주입받아 사용하는 방식. 제어 역전의 방법 중 하나
+
+의존성 주입받는 방법
+1.	생성자를 통한 의존성 주입
+2.	필드 객체 선언을 통한 의존성 주입
+3.	Setter 메서드를 통한 의존성 주입
+스프링에서는 @Autowired라는 어노테이션(annotation) 통해 의존성 주입할 수 있음. 4.3 이후로는 생성자 통해 의존성 주입할 때 어노테이션 생략 가능
+
+
+
+예제 1.2 생성자를 통한 의존성 주입
+@RestController
+public class DIController {
+    
+    MyService myService;
+
+    @Autowired
+    public DIController(MyService myService){
+        this.myService=myService;
+    }
+
+    @GetMapping("/di/hello")
+    public String getHello(){
+        return myService.getHello();
+    }
+}
+
+예제 1.3 필드 객체 선언을 통한 의존성 주입
+@RestController
+public class FieldInjectionController {
+    
+    @Autowired
+    private MyService myService;
+}
+
+예제 1.4 setter 메서드를 통한 의존성 주입
+@RestController
+public class SetterInjectionController {
+    
+    MyService myService;
+    
+    @Autowired
+    public void setMyService(MyService myService){
+        this.myService=myService;
+    }
+}
+
+
+-1.1.3 관점 지향 프로그래밍(AOP)
+관점 지향 프로그래밍 AOP: Aspect-Oriented Programming
+AOP는 스프링의 아주 중요한 특징
+객체지향 프로그래밍(OOP:Object-Oriented Programming)과 혼동하지 않도록 주의할 것
+
+AOP란? 관점을 기준으로 묶어 개발하는 방식
+관점-핵심기능: 비즈니스 로직 구현하는 과정에서 비즈니스 로직이 처리하려는 목적 기능
+      Ex) 상품정보를 DB에 저장 등
+
+AOP 구현하는 방법
+1.컴파일 과정에 삽입하는 방식
+2.바이트코드를 메모리에 로드하는 과정에 삽입하는 방식
+3.프락시 패턴을 이용한 방식 
+
+<1.2 스프링 프레임워크 vs. 스프링 부트>
+스프링 부트가 가진 특징
+-1.2.1 의존성 관리
+스프링 프레임워크- 각 모듈의 의존성을 직접 설정해야함
+스프링 부트- ‘spring-boot-starter’라는 의존성 제공
+
+-1.2.2 자동 설정
+
+예제 1.6 스프링부트의 메인 애플리케이션 코드
+@SpringBootApplication
+public class SpringBootApplication {
+    
+    public static void main(String[] args){
+        SpringApplication.run(SpringBootApplication.class, args);
+    }
+}
+
+@SpringBootApplication
+->@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan
+세 개의 어노테이션을 합쳐놓은 구성이다.
+
+-1.2.3 내장 WAS
+스프링 부트의 각 웹 애플리케이션에서는 내장WAS(Web Application Server)가 존재.
+스프링부트의 자동 설정 기능은 특별한 설정 없이 톰캣 실행 가능
+
+-1.2.4 모니터링
+개발이 끝난 후 서비스를 운영하는 시기-> 시스템이 사용하는 스레드, 메모리, 세션 등 주요 소들을 모니터링해야 함.
+
+
