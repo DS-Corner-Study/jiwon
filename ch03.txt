@@ -1,0 +1,24 @@
+<개발환경 준비>
+-Windows 10 64-bit
+-인텔리제이 Ultimate
+-JDK 11(1.8버전 이상)'
+-스프링 부트 2.5.6~2.5.8
+-MariaDB 10.6.5
+-메이븐(Maven)
+
+<자바 JDK 설치>
+-자바 11버전 사용
+1.OpenJDK 다운로드
+2.항목 설정
+  -Java Version: Java 11(LTS)
+  -Operating System: Windows
+  -Architecture: x86 64-bit
+  -Java Package: JDK
+3. .msi or .zip 형식의 설치 파일 내려받음
+4. 환경변수 확인하기 위해 [제어판]->[시스템 및 보안]->[시스템]으로 이동 후, [관련 설정]->[고급 시스템 설정]->[고급]->[환경변수]
+
+<인텔리제이 IDEA 설치>
+인텔리제이란? 
+: 제트브레인(Jetbrains)에서 제작한 자바용 통합 개발 환경
+
+
