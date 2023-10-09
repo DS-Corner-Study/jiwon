@@ -1,0 +1,58 @@
+<프로젝트 생성>
+-인텔리제이 IDEA에서 프로젝트 생성
+1.'Spring Initializr'선택
+2.Name: 'hello'라고 프로젝트의 이름을 설정
+3.Location: 프로젝트를 생성할 위치 설정
+3.Language: JVM 상에서 동작하는 언어로 'Java'를 선택
+4.Type: 빌드 툴 선택. 이 책에서는 Maven 선택
+5.Group: 'com.springboot'로 그룹 설정
+6.Artifact: 세부 프로젝트를 식별하는 정보로 'hello'를 설정
+7.Package name: Group과 Artifact 설정하면 자동으로 입력됨
+8.Project SDK: 11버전
+9.Java: 11버전
+10.Packaging: 애플리케이션을 쉽게 배포, 동작하게 할 파일들의 패키징 옵션으로 'Jar' 선택
+
+->인텔리제이 IDEA가 Maven을 통해 프로젝트를 초기화함
+   프로젝트에 필요한 의존성 가져옴
+   
+-스프링 공식 사이트에서 프로젝트 생성
+1. https://start.spring.io 경로로 접속하여 각 항목 선택 후 [Generate]버튼 누르기
+2. 설정
+Product: Maven Project
+Language: Java
+Spring Boot: 2.5.6
+Project Metadata
+  -Group: com.springboot
+  -Artifact: hello
+  -Name: hello
+  -Description: Demo project for Spring Boot  (자유롭게 서술 가능)
+  -Package Name: com.springboot.hello  (자동완성 됨)
+  -Packaging: Jar
+  -Java: 11
+3. Dependencies 항목 채우기 위해 [ADD DEPENDENCIES...] 버튼 클릭
+4. Lombok, Spring Configuration Processor, Spring Web 항목 추가
+5. [GENERATE] 버튼 클릭
+
+<빌드 관리 도구>
+: 프로젝트를 인식, 실행할 수 있도록 우리가 작성한 소스코드와 프로젝트에 사용될 파일들을 빌드하는 도구
+  ex) JVM, WAS
+
+<메이븐>
+메이븐의 대표적인 기능
+-프로젝트 관리
+-빌드 및 패키징
+-테스트
+-배포
+
+메이븐의 생명 주기
+-기본 생명주기
+-클린 생명주기
+-사이트 생명주기
+
+<컨트롤러 작성하기>
+com.springboot.hello 패키지에 마우스 오른쪽 버튼 클릭
+[New]->[Package] 하여 'controller'라는 이름의 하위 패키지 생성
+'controller'에 마우스 오른쪽 버튼 클릭
+[New]->[Java Class] 클릭하여 HelloController라는 이름의 컨트롤러 생성
+
+
