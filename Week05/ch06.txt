@@ -1,0 +1,73 @@
+<6.1 마리아DB 설치>
+-MariaDB Server Version:MariaDB Server 10.6.5
+-Operating SYstem:Windows
+-Architecture:x86_64
+-Pachage Type:MSI Package
+설치파일 내려받기
+
+<6.2 ORM>
+-ORM의 장점
+*데이터베이스 쿼리를 객체지향적으로 조작 가능
+1.쿼리문을 작성하는 양이 현저히 줄어들고 이에 따른 개발비용이 줄어듦
+2.객체지향적으로 데이터베이스에 접근할 수 있어 코드의 가독성을 높임
+*재사용 및 유지보수에 편리
+1.ORM을 통해 매핑된 객체는 모두 독립적->재사용 용이
+2.객체들은 각 클래스로 나뉘어 있음->유지보수 용이
+*데이터베이스에 대한 종속성 줄어듦
+1.ORM을 통해 자동 생성된 SQL문은 객체 기반으로 데이터베이스 테이블 관리->데이터베이스에 종속적이지 않음
+2.데이터베이스를 교체하는 상황에서 비교적 리스크가 적음
+
+-ORM의 단점
+*ORM만으로 온전한 서비스 구현에 한계가 있음
+1.복잡한 서비스의 경우 직접 쿼리를 구현하지 않고 코드를 구현하기 어려움
+2.복잡한 쿼리를 정확한 설계없이 ORM만으로 구성하면 속도 저하 등 성능문제 발생할 수 있음
+*애플리케이션의 객체관점과 데이터베이스의 관계 관점의 불일치 발생
+1.세분성: ORM 자동설계방법에 따라 데이터베이스에 있는 테이블 수와 애플리케이션의 엔티티 클래스 수가 다른 경우가 생김
+2.상속성: RDBMS에는 상속 개념이 없음
+3.식별성: RDBMS는 기본키로 동일성 정의. 자바는 두 객체의 값이 같아도 다르다고 판단할 수 있음. 식별과 동일성의 문제
+4.연관성: 객체지향 언어는 객체를 참조함으로써 연관성 나타냄
+             RDBMS에서는 외래키 삽입함으로써 연관성 표현함
+5.탐색: 자바와 RDBMS는 어떤 값에 접근하는 방식이 다름
+          자바에서는 특정 값에 접근하기 위해 객체 참조 같은 연결 수단 활용(객체 연결하고 연겨해서 접근하는 그래프 형태의 접근 방식)
+          RDBMS에서는 쿼리를 최소화하고 조인을 통해 여러 테이블을 로드하고 값을 추출하는 접근방식 채택
+
+<6.3 JPA>
+-JPA: 자바 진영의 ORM 기술 표준으로 채택된 인터페이스의 모음
+        ORM-큰 개념,   JPA-구체화된 스펙 포함
+-JPA 기반의 구현체
+1.하이버네이트(Hibernate)->가장 많이 사용되는 구현체
+2.이클립스 링크(EclipseLink)
+3.데이터 뉴클리어스(DataNucleus)
+
+<6.4 하이버네이트>
+하이버네이트: 자바의 ORM 프레임워크. JPA가 정의하는 인터페이스를 구현하고 있는 구현체 중 하나
+
+-6.4.1 Spring Data JPA
+Spring Data JPA: 
+-JPA를 편리하게 사용할 수 있도록 지원하는 스프링 하위 프로젝트 중 하나
+-CRUD 처리에 필요한 인터페이스 제공
+
+<6.5 영속성 컨텍스트>
+영속성 컨텍스트(Persistence Context):
+-애플리케이션, 데이터베이스 사이에서 엔티티와 레코드의 괴리를 해소하는 기능, 객체 보관하는 기능 수행
+-엔티티 객체가 영속성 컨텍스트에 들어와 JPA 관리대상이 되는 시점부터는 해당 객체를 영속 객체(Persistence Object)라고 부름
+-영속성 컨택스트는 세션 단위 생명주기를 가짐
+
+
+-6.5.1 엔티티 매니저
+엔티티 매니저: 엔티티를 관리하는 객체
+ex)
+ public SimpleJpaRepository(JpaEntitiyInformation<T,?>entityInformation, EntityManagerentityManager){
+Assert.notNull(entityInformation,"JpaEntityInformation must not be null!");
+Assert.notNull(entityManager,"EntityManager must not be null!");
+
+this.entityInformation=entityInformation;
+this.em=entityManager;
+this.privider=PersistenceProvider.fromEntityManager(entityManager);
+}
+
+-6.5.2 엔티티의 생명주기
+1. 비영속: 영속성 컨텍스트에 추가되지 않은 엔티티 객체의 상태
+2. 영속: 영속성 컨텍스트에 의해 엔티티 객체가 관리되는 상태
+3. 준영속: 영속성 컨텍스트에 의해 관리되던 엔티티 객체가 컨텍스트와 분리된 상태
+4. 삭제: 데이트베이스에서 레코드를 삭제하기 위해 영속성 컨텍스트에 삭제 요청을 한 상태
